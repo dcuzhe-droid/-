@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>늠읒 아카이브</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        - {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --blue: #147ef5;
+            --dark-blue: #0b3d91;
+            --text: #172033;
+            --sub-text: #667085;
+            --light-blue: #eef6ff;
+            --border: #dce8f5;
+            --background: #ffffff;
+        }
+
+        body {
+            font-family: "Noto Sans KR", sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button,
+        input {
+            font-family: inherit;
+        }
+
+        /* 전체 컨테이너 */
+
+        .container {
+            width: min(1180px, calc(100% - 40px));
+            margin: 0 auto;
+        }
+
+        /* Header */
+
+        header {
+            padding: 32px 0 18px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.96);
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            color: var(--dark-blue);
+        }
+
+        .logo span {
+            color: var(--blue);
+        }
+
+        nav {
+            display: flex;
+            gap: 8px;
+        }
+
+        nav a {
+            padding: 9px 14px;
+            border-radius: 10px;
+            color: var(--sub-text);
+            font-size: 14px;
+            transition: 0.2s ease;
+        }
+
+        nav a:hover,
+        nav a.active {
+            background: var(--light-blue);
+            color: var(--blue);
+        }
+
+        .menu-button {
+            display: none;
+            border: none;
+            background: transparent;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--dark-blue);
+        }
+
+        /* Hero */
+
+        .hero {
+            text-align: center;
+            padding: 78px 0 45px;
+        }
+
+        .hero-label {
+            display: inline-block;
+            padding: 6px 12px;
+            margin-bottom: 17px;
+            background: var(--light-blue);
+            border-radius: 999px;
+            color: var(--blue);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .hero h1 {
+            font-size: clamp(38px, 6vw, 66px);
+            line-height: 1.15;
+            letter-spacing: -3px;
+            color: var(--dark-blue);
+            margin-bottom: 18px;
+        }
+
+        .hero p {
+            color: var(--sub-text);
+            font-size: 16px;
+            max-width: 600px;
+            margin: 0 auto 34px;
+        }
+
+        /* Search */
+
+        .search-box {
+            max-width: 760px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--sub-text);
+            font-size: 20px;
+        }
+
+        .search-box input {
+            width: 100%;
+            height: 62px;
+            padding: 0 55px;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            outline: none;
+            font-size: 15px;
+            background: white;
+            box-shadow: 0 8px 30px rgba(20, 126, 245, 0.07);
+            transition: 0.25s ease;
+        }
+
+        .search-box input:focus {
+            border-color: var(--blue);
+            box-shadow: 0 0 0 4px rgba(20, 126, 245, 0.1);
+        }
+
+        /* Category */
+
+        .category-section {
+            padding: 15px 0 45px;
+        }
+
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .section-title h2 {
+            font-size: 18px;
+            color: var(--dark-blue);
+        }
+
+        .result-count {
+            font-size: 13px;
+            color: var(--sub-text);
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+        }
+
+        .tag {
+            border: 1px solid var(--border);
+            background: white;
+            color: #506078;
+            padding: 8px 15px;
+            border-radius: 999px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: 0.2s ease;
+        }
+
+        .tag:hover {
+            border-color: var(--blue);
+            color: var(--blue);
+        }
+
+        .tag.active {
+            background: var(--blue);
+            border-color: var(--blue);
+            color: white;
+        }
+
+        /* Works */
+
+        .works-section {
+            padding: 20px 0 90px;
+            background: #f8fbff;
+            border-top: 1px solid #edf4fb;
+        }
+
+        .works-header {
+            padding: 35px 0 22px;
+        }
+
+        .works-header h2 {
+            font-size: 24px;
+            color: var(--dark-blue);
+            letter-spacing: -1px;
+        }
+
+        .works-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        /* Card */
+
+        .work-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 25px;
+            min-height: 310px;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .work-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 35px rgba(20, 80, 140, 0.09);
+        }
+
+        .work-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .period {
+            color: var(--sub-text);
+            font-size: 12px;
+        }
+
+        .work-card h3 {
+            font-size: 21px;
+            color: var(--dark-blue);
+            margin-bottom: 5px;
+            letter-spacing: -0.7px;
+        }
+
+        .author {
+            color: var(--blue);
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .description {
+            color: var(--sub-text);
+            font-size: 14px;
+            line-height: 1.75;
+            margin-bottom: 20px;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: auto;
+            margin-bottom: 20px;
+        }
+
+        .card-tag {
+            background: var(--light-blue);
+            color: var(--blue);
+            padding: 5px 9px;
+            border-radius: 7px;
+            font-size: 11px;
+        }
+
+        .original-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 7px;
+            width: 100%;
+            padding: 11px;
+            border-radius: 10px;
+            background: var(--blue);
+            color: white;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.2s ease;
+        }
+
+        .original-button:hover {
+            background: var(--dark-blue);
+        }
+
+        /* Empty */
+
+        .empty {
+            display: none;
+            text-align: center;
+            padding: 70px 20px;
+            color: var(--sub-text);
+        }
+
+        .empty-icon {
+            font-size: 35px;
+            margin-bottom: 12px;
+        }
+
+        .empty h3 {
+            color: var(--dark-blue);
+            margin-bottom: 5px;
+        }
+
+        /* Footer */
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 30px 0;
+            color: var(--sub-text);
+            font-size: 12px;
+            text-align: center;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 850px) {
+
+            .works-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            nav {
+                display: none;
+                position: absolute;
+                left: 20px;
+                right: 20px;
+                top: 80px;
+                background: white;
+                padding: 10px;
+                border: 1px solid var(--border);
+                border-radius: 14px;
+                box-shadow: 0 15px 35px rgba(20, 80, 140, 0.1);
+                z-index: 10;
+            }
+
+            nav.open {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .menu-button {
+                display: block;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .container {
+                width: min(100% - 28px, 1180px);
+            }
+
+            header {
+                padding: 20px 0;
+            }
+
+            .hero {
+                padding: 55px 0 35px;
+            }
+
+            .hero h1 {
+                letter-spacing: -2px;
+            }
+
+            .hero p {
+                font-size: 14px;
+            }
+
+            .search-box input {
+                height: 56px;
+            }
+
+            .works-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .work-card {
+                min-height: auto;
+            }
+
+            .section-title {
+                align-items: flex-end;
+            }
+
+            .tags {
+                gap: 7px;
+            }
+
+            .tag {
+                padding: 7px 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="container header-inner">
+
+        <a href="#" class="logo">
+            <span>늠읒</span> 아카이브
+        </a>
+
+        <nav id="navigation">
+            <a href="#" class="active">홈</a>
+            <a href="#works">작품</a>
+            <a href="#categories">분류</a>
+            <a href="#guide">가이드</a>
+        </nav>
+
+        <button class="menu-button" id="menuButton">
+            ☰
+        </button>
+
+    </div>
+</header>
+
+
+<main>
+
+    <!-- Hero -->
+
+    <section class="hero">
+        <div class="container">
+
+            <span class="hero-label">NW LITERARY ARCHIVE</span>
+
+            <h1>늠읒 포타 아카이브</h1>
+
+            <p>
+                늠읒 작품을 쉽게 찾을 수 있게 만든 아카이브 입니다.
+            </p>
+
+            <div class="search-box">
+                <span class="search-icon">⌕</span>
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="작품명, 작가, 키워드로 검색"
+                >
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- Categories -->
+
+    <section class="category-section" id="categories">
+
+        <div class="container">
+
+            <div class="section-title">
+                <h2>분류</h2>
+
+                <span class="result-count" id="resultCount">
+                    52개의 작품
+                </span>
+            </div>
+
+            <div class="tags" id="tagContainer">
+
+                <button class="tag active" data-category="전체">
+                    전체
+                </button>
+
+                <button class="tag" data-category="청게">
+                    청게
+                </button>
+
+                <button class="tag" data-category="캠게">
+                    캠게
+                </button>
+
+                <button class="tag" data-category="센티넬버스">
+                    센티넬버스
+                </button>
+
+                <button class="tag" data-category="오메가버스">
+                    오메가버스
+                </button>
+
+                <button class="tag" data-category="판타지">
+                    판타지
+                </button>
+
+                <button class="tag" data-category="마법소년물">
+                    마법소년물
+                </button>
+
+                <button class="tag" data-category="연예계">
+                    연예계
+                </button>
+
+                <button class="tag" data-category="노장">
+                    노장
+                </button>
+
+                <button class="tag" data-category="19">
+                    19
+                </button>
+
+                <button class="tag" data-category="코미디">
+                    코미디
+                </button>
+
+                <button class="tag" data-category="정략결혼">
+                    정략결혼
+                </button>
+
+                <button class="tag" data-category="성인미자">
+                    성인미자
+                </button>
+
+                <button class="tag" data-category="짭근친">
+                    짭근친
+                </button>
+
+                <button class="tag" data-category="타씨피 언급">
+                    타씨피 언급
+                </button>
+
+                <button class="tag" data-category="수인물">
+                    수인물
+                </button>
+
+                <button class="tag" data-category="모브 언급">
+                    모브 언급
+                </button>
+
+                <button class="tag" data-category="그림">
+                    그림
+                </button>
+
+                <button class="tag" data-category="기타">
+                    기타
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Works -->
+
+    <section class="works-section" id="works">
+
+        <div class="container">
+
+            <div class="works-header">
+                <h2 id="worksCount">52개의 작품</h2>
+            </div>
+
+            <div class="works-grid" id="worksGrid"></div>
+
+            <div class="empty" id="emptyState">
+
+                <div class="empty-icon">⌕</div>
+
+                <h3>작품을 찾을 수 없습니다.</h3>
+
+                <p>
+                    다른 작품명, 작가명 또는 키워드로 검색해 보세요.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer id="guide">
+    <div class="container">
+        <div style="margin-bottom: 8px; font-size: 16px; font-weight: 700; color: var(--dark-blue);">
+            늠읒 아카이브
+        </div>
+        <div>
+            늠읒 아카이브 · @cozuiq
+<p>
+					문의 및 삭제 요청은 X(구 트위터)로 알려주시길 바랍니다
+<p/>
+
+        </div>
+    </div>
+</footer>
+
+
+<script>
+
+    /*
+    =====================================
+    작품 데이터
+    =====================================
+    여기에 작품을 추가하면 카드가 자동으로 생성됩니다.
+    */
+
+    const works = [
+
+
+        {
+            title: "부적격 결혼의 대명사",
+            author: "상강",
+            period: "25.12.29",
+            description: "아무리 생각해봐도 이건 아니었다. 내가 지금 스물여덟을 먹었는데 저기 앉아있는 열아홉 짜리랑 뭘 하라는 거야.",
+            categories: ["정략결혼", "오메가버스"],
+            url: "https://posty.pe/pibjtcbc"
+        },
+
+        {
+            title: "마음보단 심장으로 上",
+            author: "레츠카",
+            period: "25.11.26",
+            description: "형 비밀 많죠? 비밀 없는 사람이 어디 있어? 근데 형은 존나 큰 비밀 있을 것처럼 생겼어요.",
+            categories: ["판타지"],
+            url: "https://posty.pe/p64teqlc"
+        },
+
+        {
+            title: "콜타임 (1/2)",
+            author: "피크70",
+            period: "26.01.03",
+            description: "그 때 한음은 살짝 흐트러진 노란 머리를 하고 있었다. 스물의 패기로 가오 좀 부려봤다고 했었나",
+            categories: ["연예계"],
+            url: "https://posty.pe/pus7li5c"
+        },
+
+        {
+            title: "성공을 위한 남자친구 활용법",
+            author: "레츠카",
+            period: "26.02.06",
+            description: "걔네 집에 돈이 썩어나게 많은데 애가 좀 결핍이 심해 보인다고 해야 하나. 음악도 취미로 하는 줄 알았는데 윤준희 작업실에 처박혀서 밤새는 거 보면 독기가 보통이 아니긴 해.",
+            categories: ["연예계", "캠게"],
+            url: "https://posty.pe/p8y79uqc"
+        },
+
+        {
+            title: "언 이모럴 썬",
+            author: "상강",
+            period: "25.11.20",
+            description: "우진아, 혹시 새아빠 생긴다면 어떨 것 같아?",
+            categories: ["성인미자"],
+            url: "https://posty.pe/psfku9hc"
+        },
+
+        {
+            title: "자네들 지금 뭐 하는 건가?",
+            author: "네이키례",
+            period: "26.01.12",
+            description: "우진이 귀엽드라. 키는 큰데 떡감은 좋아.",
+            categories: ["19", "타씨피 언급"],
+            url: "https://posty.pe/pcvh0wkc"
+        },
+
+        {
+            title: "가짜 형제를 조심하세요! 上",
+            author: "ki",
+            period: "25.12.01",
+            description: "우진아, 우리가 어떻게 형제야.... ",
+            categories: ["짭근친", "성인미자", "타씨피 언급"],
+            url: "https://posty.pe/piu10utc"
+        },
+
+        {
+            title: "잔액(殘液)",
+            author: "도트",
+            period: "26.01.11",
+            description: "각자의 옆구리에 남자 하나씩을 끼고, 그렇게 스물하나 강우진과 스물셋 최립우는 재회했다",
+            categories: ["19", "타씨피 언급"],
+            url: "https://posty.pe/pwwwpwhc"
+        },
+
+        {
+            title: "어린이 보호구역",
+            author: "네이키례",
+            period: "26.05.24",
+            description: "강우진보고 내가 선배 짓하는 네가 신경 쓰이니 후배는 만나지 말어라. 이렇게 말하는 게 우습잖아요. 나이 먹고. 걔가 날 어떻게 보겠어.",
+            categories: ["19"],
+            url: "https://posty.pe/prnf6rmc"
+        },
+
+        {
+            title: "언 이모럴 대디",
+            author: "상강",
+            period: "25.11.25",
+            description: "좋아해요. 알고 있었잖아. 형.",
+            categories: ["짭근친", "성인미자"],
+            url: "https://posty.pe/pysgeo7c"
+        },
+
+        {
+            title: "물생활 길라잡이 上",
+            author: "아오개",
+            period: "25.12.13",
+            description: "경계가 섞여 있었다. 우진은 그래서 당연하게도 한음을 사랑했다, 가족이자 형으로서. 따지자면 장한음은 진짜 형이 아니었지만 그렇다면 그냥 가축 대 가축으로서 사랑했다.",
+            categories: ["짭근친", "노장"],
+            url: "https://posty.pe/p3nlhwkc"
+        },
+
+        {
+            title: "사실은네가너무좋았어",
+            author: "상강",
+            period: "26.02.27",
+            description: "강우진은 나를 진짜 좋아하는 게 맞나? 장한음은 헷갈리기만 했다.",
+            categories: ["성인미자", "청게"],
+            url: "https://posty.pe/pkt6hekc"
+        },
+
+        {
+            title: "오버플로우 上",
+            author: "네이키례",
+            period: "25.06.14",
+            description: "장한음은 강우진에게 해준 게 많았는데, 정작 강우진은 장한음에게 해준 게 없었다. 기브앤테이크까지 아니더라도 은혜 갚는 까치 정도는 돼야지.",
+            categories: ["19"],
+            url: "https://posty.pe/pysbhlec"
+        },
+
+        {
+            title: "첫사랑 회로 과부하",
+            author: "ㅊㅇ",
+            period: "26.02.27",
+            description: "감정회로가 들어가서 그런가 로봇주제에 사춘기도 갖고 말이야. 가짜울음을 짓는 한음을 우진이 안광이 꺼진 눈으로 경멸했다. 아빠 진짜 이상해요..",
+            categories: ["19"],
+            url: "https://posty.pe/p66a2rsc"
+        },
+
+        {
+            title: "오천원만 주면 키스해주는 놈",
+            author: "q",
+            period: "26.03.11",
+            description: "대꾸 없이 빤히 바라보자 다시 오천 원이 쓱 내밀어졌다. 콧잔등 긁적이며 본론 꺼낸다. 그, 그게요... 오천 원 주면 키스해 주신다고 해서…",
+            categories: ["19", "청게"],
+            url: "https://posty.pe/p7mwtbjc"
+        },
+
+        {
+            title: "사이드 비사이드 하이드 (3/3) (clean ver.)",
+            author: "피크70",
+            period: "26.02.20",
+            description: "죄없는 베개를 패가며 강우진이 밤새 도출해 낸 결론은 그랬다. 우진이 한음에게 뽀뽀한 건 별 이유 없었다. 그냥 하루종일 그러고 싶었으니까.",
+            categories: ["캠게"],
+            url: "https://posty.pe/publ5e0c"
+        },
+
+        {
+            title: "선녀와 남읒군",
+            author: "도트",
+            period: "26.02.10",
+            description: "오지말라면 좀, 하... 애초에 나는 선수도 아닐뿐더러 너 이런데 올 형편 아닌거 뻔히 보이고 어울리지도 않아.",
+            categories: ["19"],
+            url: "https://posty.pe/p2ek6t0c"
+        },
+
+        {
+            title: "아님말고",
+            author: "레츠카",
+            period: "26.08.03",
+            description: "이 안타까운 아싸선배를 내가 챙겨줘야지 싶었던 순진한 마음이 머릿속에서 와르르 무너졌다. 한음이 형. 형은 진짜 나빠요......",
+            categories: ["캠게"],
+            url: "https://posty.pe/pvf5fy0c"
+        },
+
+        {
+            title: "임계초과",
+            author: "fx7o",
+            period: "25.12.14",
+            description: "우진아, 형이 하지 말라고 했잖아. 근데 왜 자꾸 엇나가.",
+            categories: ["19", "짭근친"],
+            url: "https://posty.pe/p4gxqb0c"
+        },
+
+        {
+            title: "로맨ces캠",
+            author: "q",
+            period: "26.07.04",
+            description: "장한음은 눈 하나 깜빡이지 않고 모든 걸 봤다. 파르르 떨리는 속눈썹과 취기로 달아오른 볼. 서툴게 혀를 움직이는 강우진까지.",
+            categories: ["기타"],
+            url: "https://posty.pe/p008dorc"
+        },
+
+        {
+            title: "여우 포획 금지",
+            author: "q",
+            period: "26.05.30",
+            description: "필사적으로 고개를 들어 내려다본 아래에는 웬 귀가 있었다. 그건 사람의 것이라고 하기엔 지나치게 크고 뾰족했다.",
+            categories: ["19", "수인물"],
+            url: "https://posty.pe/plsj5wac"
+        },
+
+        {
+            title: "19금 주의 요망 ①",
+            author: "roro",
+            period: "26.02.09",
+            description: "잠시 후 한음의 입에서 강우진이라는 이름이 나왔을 때쯤, 한음은 인정했다. 나 옆집 좆고딩 강우진에게 꼴렸다....",
+            categories: ["성인미자"],
+            url: "https://posty.pe/p39f9f9c"
+        },
+
+        {
+            title: "지나친 쾌락에 주의하세요",
+            author: "쿠우",
+            period: "26.02.22",
+            description: "진짜 미친거 아니야? 내가 경악에 질린 것도 모른 체 형들은 내 양 옆에서 나체 상태로 사이좋게 자고 있었다.",
+            categories: ["19", "캠게", "타씨피 언급"],
+            url: "https://posty.pe/plsj5wac"
+        },
+
+        {
+            title: "오천원만 주면 xx해주는 놈",
+            author: "q",
+            period: "26.04.01",
+            description: "진짜 아프단 말야. 내 말 듣지도 않고, 자꾸, 자꾸...... 형은 다른 사람이랑 이런 거 많이 해봤겠지만 나는, 난 처음인데....",
+            categories: ["19", "청게"],
+            url: "https://posty.pe/pxr1cchc"
+        },
+
+        {
+            title: "디코딩 上",
+            author: "q",
+            period: "26.07.16",
+            description: "넌 학습 능력이 좀 부족한 거 같아. 규태가 한심하단 목소리로 중얼거렸다. 강우진은 그 말에 반박할 수 없었다.",
+            categories: ["19", "모브 언급"],
+            url: "https://posty.pe/pnxsdthc"
+        },
+
+        {
+            title: "LOVE&PAIN",
+            author: "조약돌",
+            period: "25.11.29",
+            description: "우진아. 내가 너 아프단 얘기를 다른 사람한테 전해 들어야 해?",
+            categories: ["성인미자"],
+            url: "https://posty.pe/pzlp4zpc"
+        },
+
+        {
+            title: "하늠님흥신소",
+            author: "sawa",
+            period: "25.10.27",
+            description: "사장님, 하며 시작한 잠꼬대는 매번 다른 바리에이션을 지나 좋아해요... 하면서 끝났다.",
+            categories: ["19", "코미디"],
+            url: "https://posty.pe/pjy39xzc"
+        },
+
+        {
+            title: "마라탕대학보내기",
+            author: "상강",
+            period: "25.11.14",
+            description: "우진이 뒷걸음치며 어정쩡하게 물러나니까 남자는 자연스럽게 우진의 집으로 들어왔다. 설마 이 사람이 내 과외쌤인가?",
+            categories: ["청게", "코미디"],
+            url: "https://posty.pe/pbh3v55c"
+        },
+
+        {
+            title: "가능의 영역",
+            author: "네이키례",
+            period: "25.12.31",
+            description: "우진아 그거 사랑 아니야 조금만 더 생각해 봐",
+            categories: ["청게", "캠게", "19"],
+            url: "https://posty.pe/pn9m1kpc"
+        },
+
+        {
+            title: "오프더레코드 2",
+            author: "피크70",
+            period: "26.01.11",
+            description: "사흘 전 처음 본 사람에게 키... 아니 뽀... 아무튼 그런 짓을 하는 고객님의 심리를 우진은 도저히 이해할 수 없다.",
+            categories: ["연예계"],
+            url: "https://posty.pe/prbofmcc"
+        },
+
+        {
+            title: "시작은 리트라이부터",
+            author: "네이키례",
+            period: "26.01.29",
+            description: "해네리브 강우진, BL 드라마 '언이터널 라이프' 캐스팅 확정... 장한음과 어깨 나란히",
+            categories: ["연예계", "19"],
+            url: "https://posty.pe/ppjlqhcc"
+        },
+
+        {
+            title: "사이드 비사이드 하이드 (3/3)",
+            author: "피크70",
+            period: "25.12.24",
+            description: "코 앞에 닿은 얼굴. 감은 눈을 뜰 때의 그 오묘한 시선. 눈이 마주친 순간 머릿속이 백지장처럼 비어버렸다.",
+            categories: ["캠게", "19"],
+            url: "https://posty.pe/pfwrg7kc"
+        },
+
+        {
+            title: "한계돌파 브레이크존",
+            author: "레츠카",
+            period: "25.11.04",
+            description: "정말 사랑앞에 나이가 중요할까. 이누야샤도 백오십이고 오신령 토모에는 최소 오백년생 신령인데 겨우 스물둘 먹어놓고 나이로만 사람을 판별하는 건 너무 예의없는 행동 아닐까.",
+            categories: ["코미디", "캠게", "청게"],
+            url: "https://posty.pe/pui5rjwc"
+        },
+
+        {
+            title: "사이드 비사이드 하이드(1/3)",
+            author: "피크70",
+            period: "25.10.30",
+            description: "나르키소스는 지 얼굴을 너무 사랑하다 못해 물에 빠져 죽었다는 이야기가 있지. ... 우리 학생은 좀 그럴 거 같은데?",
+            categories: ["캠게"],
+            url: "https://posty.pe/p6al1nxc"
+        },
+
+        {
+            title: "게이에진심인가족들",
+            author: "솜",
+            period: "26.02.03",
+            description: "하지만 그 시발점이 되는 트윗은 상당히 좋지 않은 시작이었다고 볼 수 있다. 왜냐하면 그것이 다른 씨피도 아닌... 늠읒이었던 것이다.",
+            categories: ["연예계", "코미디", "타씨피 언급"],
+            url: "https://posty.pe/psg4zajc"
+        },
+
+        {
+            title: "컨트롤 씨브이",
+            author: "남기훈",
+            period: "25.11.23",
+            description: "그러게 여친 단속을 왜 못 해서 그 사달을 내지? 얼마나 만만했으면. 아, 장한음 개못하는구나. 그거.",
+            categories: ["청게"],
+            url: "https://posty.pe/p3hfi9gc"
+        },
+
+        {
+            title: "오프더레코드 1",
+            author: "피크70",
+            period: "25.11.24",
+            description: "[단독]“사랑에 빠진게 죄는 아니잖아”…장한음♥주은정, 한밤의 밀회",
+            categories: ["연예계"],
+            url: "https://posty.pe/p1qdrfsc"
+        },
+
+        {
+            title: "최애의 남자친구와 잘못 엮어버렸습니다 (1/2)",
+            author: "피크70",
+            period: "26.02.19",
+            description: "봤으려나? 당연히 봤겠지. 손이 발발 떨리고 있었다. 애당초 마주치면 안됐는데. 잘못 엮였다. 지독하게 잘못 엮인 게 분명하다.",
+            categories: ["연예계"],
+            url: "https://posty.pe/p34gfknc"
+        },
+
+        {
+            title: "사이드 비사이드 하이드 (2/3)",
+            author: "피크70",
+            period: "25.11.16",
+            description: "엎질러버린 마음은 왜 주워 담지 못할까. 정적을 메우는 숨소리 한 번에도 오만 가지 생각이 다 들었다.",
+            categories: ["캠게"],
+            url: "https://posty.pe/pxg0omtc"
+        },
+
+        {
+            title: "꽃이 시들 때까지",
+            author: "설기",
+            period: "26.01.23",
+            description: "요즘 잘 때까지만 해도 곁에 있었던 우진이 눈을 뜨기만 하면 사라진다. 다시 돌아오겠지, 하고 가만히 집에서 기다려도 오지 않는다.",
+            categories: ["기타"],
+            url: "https://posty.pe/pa3ycmbc"
+        },
+
+        {
+            title: "러브앤피스♡!",
+            author: "q",
+            period: "26.06.17",
+            description: "그리고 마지막 남은 하나, 강우진은 이렇게 대답할 것이다. 세상을 누가 지키냐고요? 제가요.........",
+            categories: ["마법소년물", "판타지"],
+            url: "https://posty.pe/pl7ls8vc"
+        },
+
+        {
+            title: "ㄱㅣㄹㅌㅣ플레져",
+            author: "q",
+            period: "26.04.21",
+            description: "맹세컨대 장한음이 시스콤 보유자는 아니다. 그럼에도 그를 이해하려면 장한별의 전남친 목록을 되짚어 볼 필요가 있다. ",
+            categories: ["19"],
+            url: "https://posty.pe/pelh1cwc"
+        },
+
+        {
+            title: "프랙처 포인트上",
+            author: "적견",
+            period: "25.12.07",
+            description: "한음이 담배를 뱉어내서 발로 비벼 껐다. 머리에 피도 안 마른 게 일찍 죽니 어쩌니... 하여튼 소문 그대로네 싶었다.",
+            categories: ["센티넬버스"],
+            url: "https://posty.pe/prwpyijc"
+        },
+
+        {
+            title: "네바다 上",
+            author: "이공일공",
+            period: "26.04.19",
+            description: "강우진의 목적에 대해서는 여전히 쓸모 없고 모진 생각이나, 강우진은 결심했다. 내가 죽어서라도, 장한음이 싫어하는 바다에 빠져 죽더라도 천만 원은 젖지 않은 채로 건네줘야겠다고.",
+            categories: ["청게", "성인미자"],
+            url: "https://posty.pe/p006janc"
+        },
+
+        {
+            title: "언모럴 커넥티드",
+            author: "네이키례",
+            period: "26.08.08",
+            description: "선배. 우리 그날 일은 없던 일로 해주세요. 죄송해요....",
+            categories: ["19", "캠게", "타씨피 언급"],
+            url: "https://posty.pe/pvfpzrnc"
+        },
+
+        {
+            title: "불건전한 동정",
+            author: "파베",
+            period: "26.01.30",
+            description: "우진은 속으로 빌었다. 하느님 부처님 제발요 착하게 살게요. 아, 설마 동성애자라고 이미 버리신 건 아니시겠죠.",
+            categories: ["19"],
+            url: "https://posty.pe/pv240vkc"
+        },
+
+        {
+            title: "늠냥이를 키워주세요! ①",
+            author: "roro",
+            period: "26.02.03",
+            description: "우진은 그것은 그것의 까맣고 땡글한 눈과 눈이 마주쳤다. 어딘가 묘했다. ",
+            categories: ["수인물"],
+            url: "https://posty.pe/pza14yoc"
+        },
+
+        {
+            title: "네바다 中",
+            author: "이공일공",
+            period: "26.05.29",
+            description: "좋아해. 형을 좋아해...... 최립우는 눈치가 정말 빨랐다. 이걸 알기까지 참 오래 걸렸다. 장한음의 눈빛이 떨렸다. 형을 마주하기 싫었다.",
+            categories: ["청게", "성인미자"],
+            url: "https://posty.pe/p5pytpac"
+        },
+
+        {
+            title: "네바다 下",
+            author: "이공일공",
+            period: "26.06.29",
+            description: "후우, 초코파이에 꽂힌 큰 초 하나, 작은 초 다섯. 여섯 개의 초를 바라보며 강우진은 불을 끄고, 소원을 빌었다. 오래오래 행복하게 살게 해주세요.",
+            categories: ["청게", "성인미자"],
+            url: "https://posty.pe/pks7qhoc"
+        },
+
+        {
+            title: "COUNTER,",
+            author: "이공일공",
+            period: "26.08.04",
+            description: "세상은 바보 따위 알아주지 않아서. 카메라의 빨간 불은 10년 전이나 지금이나 천재만을 비추기에.",
+            categories: ["청게", "기타"],
+            url: "https://posty.pe/p1ply4ac"
+        },
+
+        {
+            title: "시골쥐 짝사랑기",
+            author: "설기",
+            period: "26.07.25",
+            description: "옛날 옛날, 아주 먼 옛날, 쥐새끼가 치즈 먹던 시절에 늠냥이라는 고양이가 살았더래요.",
+            categories: ["판타지", "기타"],
+            url: "https://posty.pe/pg19q3fc"
+        },
+
+        {
+            title: "로그",
+            author: "ㅊㅇ",
+            period: "26.03.12",
+            description: "돌판도 팬아트 그림 백업 이런거 모아서 하는지 모르겠는데 제가 씹덕 출신이라 걍 해봐요",
+            categories: ["그림", "기타"],
+            url: "https://posty.pe/prkgrpjc"
+        }
+
+    ];
+
+
+    const worksGrid = document.getElementById("worksGrid");
+    const searchInput = document.getElementById("searchInput");
+    const resultCount = document.getElementById("resultCount");
+    const worksCount = document.getElementById("worksCount");
+    const emptyState = document.getElementById("emptyState");
+    const tagButtons = document.querySelectorAll(".tag");
+
+
+    let currentCategory = "전체";
+
+
+    /*
+    =====================================
+    작품 카드 생성
+    =====================================
+    */
+
+    function displayWorks() {
+
+        const searchValue =
+            searchInput.value.toLowerCase().trim();
+
+        const filteredWorks = works.filter(work => {
+
+            const matchesCategory =
+                currentCategory === "전체" ||
+                work.categories.includes(currentCategory);
+
+            const searchableText =
+                `${work.title}
+                ${work.author}
+                ${work.description}
+                ${work.categories.join(" ")}`.toLowerCase();
+
+            const matchesSearch =
+                searchableText.includes(searchValue);
+
+            return matchesCategory && matchesSearch;
+        });
+
+
+        worksGrid.innerHTML = "";
+
+
+        filteredWorks.forEach(work => {
+
+            const card = document.createElement("article");
+
+            card.className = "work-card";
+
+            card.innerHTML = `
+
+                <div class="work-meta">
+                    <span class="period">
+                        ${work.period}
+                    </span>
+                </div>
+
+                <h3>
+                    ${work.title}
+                </h3>
+
+                <div class="author">
+                    ${work.author}
+                </div>
+
+                <p class="description">
+                    ${work.description}
+                </p>
+
+                <div class="card-tags">
+
+                    ${work.categories.map(category => `
+                        <span class="card-tag">
+                            ${category}
+                        </span>
+                    `).join("")}
+
+                </div>
+
+                <a
+                    href="${work.url}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="original-button"
+                >
+                    원문 보기 ↗
+                </a>
+
+            `;
+
+            worksGrid.appendChild(card);
+
+        });
+
+
+        resultCount.textContent =
+            `${filteredWorks.length}개의 작품`;
+
+        worksCount.textContent =
+            `${filteredWorks.length}개의 작품`;
+
+
+        if (filteredWorks.length === 0) {
+
+            emptyState.style.display = "block";
+
+        } else {
+
+            emptyState.style.display = "none";
+
+        }
+
+    }
+
+
+    /*
+    =====================================
+    검색
+    =====================================
+    */
+
+    searchInput.addEventListener(
+        "input",
+        displayWorks
+    );
+
+
+    /*
+    =====================================
+    카테고리 필터
+    =====================================
+    */
+
+    tagButtons.forEach(button => {
+
+        button.addEventListener("click", () => {
+
+            tagButtons.forEach(tag => {
+                tag.classList.remove("active");
+            });
+
+            button.classList.add("active");
+
+            currentCategory =
+                button.dataset.category;
+
+            displayWorks();
+
+        });
+
+    });
+
+
+    /*
+    =====================================
+    모바일 메뉴
+    =====================================
+    */
+
+    const menuButton =
+        document.getElementById("menuButton");
+
+    const navigation =
+        document.getElementById("navigation");
+
+
+    menuButton.addEventListener("click", () => {
+        navigation.classList.toggle("open");
+    });
+
+    // 모바일에서 메뉴를 선택하면 메뉴를 닫습니다.
+    navigation.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", () => {
+            navigation.classList.remove("open");
+        });
+    });
+
+    /*
+    초기 화면
+    */
+
+    displayWorks();
+
+</script>
+
+</body>
+</html>
