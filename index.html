@@ -15,7 +15,9 @@
        기본 초기화
     ================================= */
 
-* {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -540,10 +542,18 @@
         }
 
         /* 검색창 핵심 수정 */
+        .hero .container {
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            box-sizing: border-box;
+        }
+
         .search-box {
             width: 100%;
             max-width: 100%;
             min-width: 0;
+            box-sizing: border-box;
         }
 
         .search-box input {
@@ -661,6 +671,27 @@
     ================================= */
 
     @media (max-width: 380px) {
+
+        .hero .container {
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            box-sizing: border-box;
+        }
+
+        .search-box {
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            box-sizing: border-box;
+        }
+
+        .search-box input {
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            box-sizing: border-box;
+        }
 
         .container {
             width: 100%;
